@@ -14,7 +14,7 @@ Expect: 8 + 1 + 6 = 15
 
 What is the score using the input?
 """
-file = "./2022/2/in.txt"
+file = "./2022/2/ex.txt"
 content = open(file)
 total = int(0)
 round = int(0)
@@ -47,10 +47,10 @@ for i, line in enumerate(content):
    ochoice = ""
    outcome = ""
 
-   choices = line.split(" ")
+   round = line.split(" ")
    
-   ochoice = opponent[choices[0]]
-   pchoice = player[choices[1]]
+   ochoice = opponent[round[0]]
+   pchoice = player[round[1]]
 
    if ochoice == pchoice:
       outcome = "T"
@@ -65,8 +65,58 @@ for i, line in enumerate(content):
 
    roundScore = score[pchoice] + score[outcome]
    
-   part1 = total + roundScore
+   total += roundScore
 
+print("Part 1 Solution: ",total)
+
+# Part 2
+
+i = 0
+line = ""
+
+goal = {
+   "X" : "L",
+   "X\n" : "L",
+   "Y" : "T",
+   "Y\n" : "T",
+   "Z" : "W",
+   "Z\n" : "W"
+}
+
+for i, line in enumerate(content):
    
-   # Part 2
+   pchoice = ""
+   ochoice = ""
+   outcome = ""
 
+   round = line.split(" ")
+
+   ochoice = opponent[round[0]]
+   outcome = goal[round[1]]
+
+   if outcome == "T":
+      pchoice = ochoice
+   elif ochoice == "Rock":
+      match outcome:
+         case "L":
+            pchoice = "Scissors"
+         case "W":
+            pchoice = "Paper"
+   elif ochoice == "Paper":
+      match outcome:
+         case "L":
+            pchoice == "Rock"
+         case "W":
+            pchoice == "Scissors"
+   elif ochoice == "Scissors":
+      match outcome:
+         case "L":
+            pchoice == "Paper"
+         case "W":
+            pchoice == "Rock"
+   else:
+      print("fart")
+
+   print("Round ",i+1,'\n',"Opponent Picked: ",ochoice,'\n',"Wanted Outcome: ",outcome,'\n',"Player Should Pick: ",pchoice,)
+
+content.close()
