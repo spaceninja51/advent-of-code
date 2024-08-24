@@ -19,7 +19,7 @@ def UnitTotals(inFile):
 
     return totals
 
-elfs = UnitTotals("./2022/1/in.txt")
+elfs = UnitTotals("./2022/in/1.txt")
 
 p1 = sorted(elfs, reverse=True)[0]
 

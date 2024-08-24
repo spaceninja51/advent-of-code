@@ -14,7 +14,7 @@ Expect: 8 + 1 + 6 = 15
 
 What is the score using the input?
 """
-file = "./2022/2/ex.txt"
+file = "./2022/ex/2.txt"
 content = open(file)
 total = int(0)
 round = int(0)
