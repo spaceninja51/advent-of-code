@@ -14,7 +14,7 @@ Expect: 8 + 1 + 6 = 15
 
 What is the score using the input?
 """
-file = "./2022/ex/2.txt"
+file = "./2022/in/2.txt"
 content = open(file)
 total = int(0)
 round = int(0)
@@ -68,12 +68,13 @@ for i, line in enumerate(content):
    total += roundScore
 
 print("Part 1 Solution: ",total)
+total = 0
+content.close()
 
 # Part 2
 
 i = 0
 line = ""
-
 goal = {
    "X" : "L",
    "X\n" : "L",
@@ -83,11 +84,13 @@ goal = {
    "Z\n" : "W"
 }
 
+content = open(file)
 for i, line in enumerate(content):
    
-   pchoice = ""
+   pchoice = "" 
    ochoice = ""
    outcome = ""
+   round = ""
 
    round = line.split(" ")
 
@@ -105,18 +108,22 @@ for i, line in enumerate(content):
    elif ochoice == "Paper":
       match outcome:
          case "L":
-            pchoice == "Rock"
+            pchoice = "Rock"
          case "W":
-            pchoice == "Scissors"
+            pchoice = "Scissors"
    elif ochoice == "Scissors":
       match outcome:
          case "L":
-            pchoice == "Paper"
+            pchoice = "Paper"
          case "W":
-            pchoice == "Rock"
+            pchoice = "Rock"
    else:
       print("fart")
 
-   print("Round ",i+1,'\n',"Opponent Picked: ",ochoice,'\n',"Wanted Outcome: ",outcome,'\n',"Player Should Pick: ",pchoice,)
+   roundScore = score[pchoice] + score[outcome]
+
+   total += roundScore
+
+print("Part 2 Solution: ",total)
 
 content.close()
