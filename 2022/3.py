@@ -1,5 +1,5 @@
 # opens the input file and iterates through each line
-with open("advent-of-code/2022/in/3.txt",'rt') as input:
+with open("2022/in/3.txt",'rt') as input:
 # File
     unsorted = []
     priorities = []
@@ -45,4 +45,56 @@ answer1 = int(0)
 for value in priorities:
     answer1 += int(value)
 
-print(answer1)
+print("Part 1 Solution:",answer1)
+
+# Day will be the day (1-31), part will be per day (1 or 2), example says whether to use
+# the example imput (1 or 0)
+def aoc22(day = 3, part = 2, useExample = 1):
+    useExample = True
+    match useExample:
+        case True:
+            mode = "ex"
+        case False:
+            mode = "in"
+    path = "2022/"+str(mode)+"/"+str(day)+".txt"
+
+# Opens the input file
+with open('2022/in/3.txt','rt') as input:
+    group = []
+    answer2 = 0
+    i = 1
+    # Iterates through each line of the input
+    for elf in input:
+        group.append(elf.replace('\n',""))
+        i += 1
+        # We have 3 grouped together
+        if i > 3:
+            pool = ""
+            tag = ""
+            for bag in group:
+                badges = ""
+                for badge in bag:
+                    # Lists the unique letters in each line as badges
+                    if badges.find(badge) == -1:
+                        badges += badge
+                # Adds each list of letters to a pool for the current group
+                pool += badges
+            # Find the letter that appears 3 times, and set the group's tag
+            # to that letter
+            for letter in pool:
+                if pool.count(letter) >= 3 and letter != tag:
+                    tag = letter
+            # Finding priority values by translating the unicode value for a given letter
+            # to the value desired by the puzzle. 
+            # Unicode a-z: 97-122, A-Z: 85-90 
+            # Desired a-z: 1-26, A-Z: 27-52
+            # Translation a-z: -96, A-Z: -38
+            if tag.isupper():
+                translation = -38
+            elif tag.islower():
+                translation = -96
+            answer2 += (ord(tag) + translation)
+            # Reset for next group
+            group.clear()
+            i = 1
+    print("Part 2 Answer:",answer2)
